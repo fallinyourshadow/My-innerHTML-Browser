@@ -2,6 +2,19 @@
 <head>
     <title>本地导航</title>
 <style>
+    #background_image {
+        height: 100%;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+        background: url(C:/Users/ASUS/Pictures/哔哩哔哩动画/19852315_1619_20190922-221231.JPG)no-repeat center;
+        background-attachment: absolute;
+        background-repeat: no-repeat;
+        background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        opacity:0.6
+    }
 a {
 	text-decoration:none;
 	color:#fff
@@ -87,7 +100,8 @@ input {
     }
 </style>
 </head>
-<body style="background:url(C:/Users/ASUS/Pictures/哔哩哔哩动画/19852315_1619_20190922-221231.jpg)no-repeat center;background-attachment:fixed;background-repeat:no-repeat;background-size:cover;-moz-background-size:cover;-webkit-background-size:cover;">
+<body style="background-color:antiquewhite;overflow:hidden; margin:0px; padding:0px;">
+    <div style="" id="background_image"></div>
     <div id="mainWd" style="opacity: 0.9">
     <iframe src="http://www.baidu.com" width="100%" height="96.8%" name="iframe_a"></iframe>
     </div>
@@ -110,9 +124,10 @@ input {
                 <a href="#" target="iframe_a" id="variableURL"></a>
                 <select style="width:20px;float:left;border:0;border-radius: 10px;" id="select_url">
                     <option></option>
-                    <option value="" >清空背景</option>
+                    <option value="">清空背景</option>
                     <option value="C:\Users\ASUS\Desktop\nikeprj\项目术语.pdf">项目术语</option>
-                    <option value="F:\picture\动漫图片\紫罗兰\7fb0fbe426394cdb9201689412ef8268.png">薇尔莉特背景</option>
+                    <option value="F:\picture\动漫图片\紫罗兰\7fb0fbe426394cdb9201689412ef8268.png">薇尔莉特背景1</option>
+                    <option value="C:\Users\ASUS\Pictures\哔哩哔哩动画\19852315_1619_20190922-221231.jpg">薇尔莉特背景2</option>
                 </select>
                 <input type="button" value="景" style="float:left" id="setBackgroundImage" title="将当前目标指定为背景">
             </td>
@@ -136,6 +151,7 @@ input {
                 DOMS.moonButton = document.getElementById("moon");
                 DOMS.mainWd = document.getElementById("mainWd");
                 DOMS.setBackgroundImageButton = document.getElementById("setBackgroundImage");
+                DOMS.backgroundImage = document.getElementById("background_image");
             })();
             (function 翻译窗口点击事件绑定() {
                 DOMS.translation.addEventListener("click", function () {
@@ -199,9 +215,9 @@ input {
                 }, false);
                 DOMS.moonButton.addEventListener("click", function () {
                     if (DOMS.mainWd.style["opacity"] == "0.9") {
-                        if (DOMS.haveBackgroundImage == false) {
-                            document.getElementsByTagName("body")[0].style = 'background-color:rgba(20,20,20,1)';
-                        }
+                        //if (DOMS.haveBackgroundImage == false) {
+                        document.getElementsByTagName("body")[0].style = 'background-color:rgba(20,20,20,1);overflow:hidden; margin:0px; padding:0px;';
+                       // }
                         DOMS.mainWd.style = "opacity:0.5";
                         DOMS.translateWindow.style = "opacity:0.6;display:none";
                         DOMS.rate = 0.6;
@@ -215,9 +231,9 @@ input {
                     }
                     else {
                         let blue = 255;
-                        if (DOMS.haveBackgroundImage == false) {
-                            document.getElementsByTagName("body")[0].style = 'background-color:antiquewhite';
-                        }
+                        //if (DOMS.haveBackgroundImage == false) {
+                        document.getElementsByTagName("body")[0].style = 'background-color:antiquewhite;overflow:hidden; margin:0px; padding:0px;';
+                        //}
                         DOMS.mainWd.style = "opacity:0.9";
                         DOMS.translateWindow.style = "opacity:0.9;display:none";
                         DOMS.rate = 0.9;
@@ -232,12 +248,14 @@ input {
             (function 设为背景按键鼠标点击事件绑定() {
                 DOMS.setBackgroundImageButton.addEventListener("click", function () {
                     var imageUrl = DOMS.inputWd.value;//DOMS.variableURL.href;
-                    console.log(imageUrl);
+                    //console.log(imageUrl);
                     if (imageUrl === "") {
                         if (DOMS.selectWd.options[DOMS.selectWd.selectedIndex].innerHTML == "清空背景") {
                             DOMS.haveBackgroundImage = false;
-                            DOMS.moonButton.click();
-                            DOMS.moonButton.click();
+                            DOMS.backgroundImage.style = "opacity:0";
+                        }
+                        else {
+                            alert("请使用图片的链接");
                         }
                     }
                     else {
@@ -253,11 +271,28 @@ input {
                                 }
                             })
                             //imageUrl = imageUrl.replace(/\\/g, '/');
-                            console.log(imageUrl);
+                            //console.log(imageUrl);
                         }
                         //imageUrl = imageUrl.split('"').toString();
-                        document.getElementsByTagName("body")[0].style = "background:" + "url(" + imageUrl + ")no-repeat center";
-                        DOMS.haveBackgroundImage = true; console.log(imageUrl);
+                        
+                        tamp = imageUrl.split('.');
+                        var tail = tamp[tamp.length - 1].toLowerCase();
+                        var imageTypeList = ["bmp", "jpg", "png", "tif", "gif", "pcx", "tga", "exif", "fpx",
+                            "svg", "psd", "cdr", "pcd", "dxf", "ufo", "eps", "ai", "raw", "WMF", "webp"];
+                        var checker = false;
+                        imageTypeList.forEach(function (v) {
+                            let check = false;
+                            check = (v == tail);
+                            if (check)
+                                checker = true;
+                        });
+                        if (checker) {
+                            DOMS.backgroundImage.style = "background:" + "url(" + imageUrl + ")no-repeat center;opacity:0.6";
+                            DOMS.haveBackgroundImage = true;
+                        }
+                        else {
+                            alert("这不是一张图片");
+                        }
                     }
                 }, false);
             })();
