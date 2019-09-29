@@ -1,0 +1,266 @@
+<html>
+<head>
+    <title>本地导航</title>
+<style>
+a {
+	text-decoration:none;
+	color:#fff
+}
+.td {
+    width: 10%;
+    text-align: center;
+    border-radius: 10px;
+}
+td select {
+    background-color: rgba(10,100,100,0.5);
+}
+.select {
+    border-radius: 10px;
+}
+iframe{
+    border:none
+}
+iframe[name='iframe_b'] {
+
+    width: 900px;
+    height: 489px;
+}
+iframe[name='iframe_a'] {
+    position: absolute;
+    top: 27px;
+    left: 0;
+
+}
+#translateWd {
+    position: absolute;
+    top: -45px;
+    left: -115px;
+    border: none;
+    overflow: hidden;
+    height: 469px;
+    width: 800px;
+    background-color: antiquewhite;
+    opacity: 0.9;
+}
+#table_1 {
+    position: fixed;
+    top:0;
+    left:0;
+}
+input {
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(10,100,100,0.5);
+    font-size:10px
+}
+
+#moon {
+    position: fixed;
+    left: 96%;
+    top: 92%;
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    overflow: hidden;
+    opacity:0.1;
+    float:right
+}
+
+    #moon .a {
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        background-color: rgba(200,200,255,0.9);
+        position: absolute;
+        top: 0.5px;
+        left: 0.5px;
+    }
+
+    #moon .b {
+        width: 37px;
+        height: 37px;
+        border-radius: 37px;
+        background-color: rgba(10,20,45,0.7);
+        position: absolute;
+        left: 16px;
+        top: 4px;
+    }
+</style>
+</head>
+<body style="background:url(C:/Users/ASUS/Pictures/哔哩哔哩动画/19852315_1619_20190922-221231.jpg)no-repeat center;background-attachment:fixed;background-repeat:no-repeat;background-size:cover;-moz-background-size:cover;-webkit-background-size:cover;">
+    <div id="mainWd" style="opacity: 0.9">
+    <iframe src="http://www.baidu.com" width="100%" height="96.8%" name="iframe_a"></iframe>
+    </div>
+    <div id="translateWd" style="display:none">
+        <iframe src="https://fanyi.baidu.com/translate" name="iframe_b"></iframe>
+    </div>
+    <table width="100%" border="0" id="table_1">
+        <tr>
+            <td style="background-color:rgba(0,255,238,0.8)" class="td"><a href="javaScript:void(0);" title="翻译">翻译</a></td>
+            <td style="background-color:rgba(0,255,255,0.8)" class="td"><a title="嘀哩嘀哩" href="http://www.dilidili.name/" target="iframe_a">嘀哩嘀哩</a></td>
+            <td style="background-color:rgba(0,238,255,0.8)" class="td"><a title="百度搜索" href="http://www.baidu.com" target="iframe_a">百度</a></td>
+            <td style="background-color:rgba(0,221,255,0.8)" class="td"><a title="蓝墨云班课" href="https://www.mosoteach.cn/web/index.php?c=clazzcourse" target="iframe_a">蓝墨云</a></td>
+            <td style="background-color:rgba(0,204,255,0.8)" class="td"><a title="w3school" href="http://www.w3school.com.cn" target="iframe_a">W3school</a></td>
+            <td style="background-color:rgba(0,187,255,0.8)" class="td"><a title="github" href="https://www.githubs.cn/top" target="iframe_a">github</a></td>
+            <td style="background-color:rgba(0,170,255,0.8)" class="td"><a title="csdn" href="https://www.csdn.net/" target="iframe_a">CSDN</a></td>
+            <td style="background-color:rgba(0,170,238,0.8)" class="td"><a title="虚幻4" href="http://api.unrealengine.com/CHN/index.html" target="iframe_a">虚幻4</a></td>
+            <td style="background-color:rgba(0,170,221,0.8)" class="td"><a title="EngVid" href="https://www.engvid.com/" target="iframe_a">EngVid</a></td>
+            <td style="background-color:rgba(0,170,204,0.8)" class="td">
+                <input type="text" placeholder="输入url" style="float:left;width:70%" id="inputURL">
+                <a href="#" target="iframe_a" id="variableURL"></a>
+                <select style="width:20px;float:left;border:0;border-radius: 10px;" id="select_url">
+                    <option></option>
+                    <option value="" >清空背景</option>
+                    <option value="C:\Users\ASUS\Desktop\nikeprj\项目术语.pdf">项目术语</option>
+                    <option value="F:\picture\动漫图片\紫罗兰\7fb0fbe426394cdb9201689412ef8268.png">薇尔莉特背景</option>
+                </select>
+                <input type="button" value="景" style="float:left" id="setBackgroundImage" title="将当前目标指定为背景">
+            </td>
+        </tr>
+    </table>
+
+    <div id="moon">
+        <div class="a"></div>
+        <div class="b"></div>
+    </div>
+        <script type="text/javascript">
+            var DOMS = DOMS||{};
+            DOMS.rate = 0.9;//翻译窗口的初始透明度
+            DOMS.haveBackgroundImage = true;
+            (function 获得DOM() {
+                DOMS.translation = document.getElementsByClassName("td")[0];
+                DOMS.variableURL = document.getElementById("variableURL");
+                DOMS.translateWindow = document.getElementById("translateWd");
+                DOMS.inputWd = document.getElementsByTagName("input")[0];
+                DOMS.selectWd = document.getElementById("select_url");
+                DOMS.moonButton = document.getElementById("moon");
+                DOMS.mainWd = document.getElementById("mainWd");
+                DOMS.setBackgroundImageButton = document.getElementById("setBackgroundImage");
+            })();
+            (function 翻译窗口点击事件绑定() {
+                DOMS.translation.addEventListener("click", function () {
+                    var style = DOMS.translateWindow.style["display"];
+                    if (style == "none")
+                        DOMS.translateWindow.style = "display:block;opacity:" + DOMS.rate;
+                    else {
+                        DOMS.translateWindow.style = "display:none";
+                    }
+
+                }, false);
+            }) ();
+            (function 选择url窗口点击事件绑定() {
+                DOMS.selectWd.onclick = function () {
+                    // var tamp = inputWd.value;
+                    if (DOMS.selectWd.options[DOMS.selectWd.selectedIndex].value && DOMS.inputWd.value != DOMS.selectWd.options[DOMS.selectWd.selectedIndex].value) {
+                        DOMS.variableURL.href = DOMS.selectWd.options[DOMS.selectWd.selectedIndex].value;
+                        DOMS.variableURL.click();
+                    }
+                    DOMS.inputWd.value = DOMS.selectWd.options[DOMS.selectWd.selectedIndex].value;
+                }
+            })();
+            (function 输入url窗口回车事件绑定() {
+                DOMS.inputWd.onkeydown = function enter(event) {
+                    var e = event || window.event || arguments.callee.caller.arguments[0];
+                    if (e && e.keyCode == 13) {
+                        var url = DOMS.inputWd.value;
+                        var localCheck = url.split('').find(function (v) {
+                            if (v == '\\') { console.log('\\'); return true; }
+                        });
+                        var frist = url.split('/')[0];
+                        var clipWords = frist.split('.');
+                        var friseWord = clipWords[0];
+                        var length = clipWords.length;
+                        if (frist == "file:" || frist == "https:" || frist == "http:" || frist == "ftp:") {
+                        }
+                        else if (localCheck) {
+                            url = "file:///" + url; console.log(url);
+                        }
+                        else if (length < 3) {
+                            url = "https://www." + url;
+                        }
+                        else if (friseWord == "www") {
+                            url = "https://" + url;
+                        }
+                        else if (friseWord == "ftp") {
+                            url = "ftp://" + url;
+                        }
+                        DOMS.variableURL.href = url;
+                        DOMS.variableURL.click();
+                    }
+                }
+            })();
+            (function 月亮图片鼠标事件绑定() {
+                DOMS.moonButton.addEventListener("mouseover", function () {
+                    DOMS.moonButton.style = "opacity:0.9";
+
+                }, false);
+                DOMS.moonButton.addEventListener("mouseout", function () {
+                    DOMS.moonButton.style = "opacity:0.1";
+                }, false);
+                DOMS.moonButton.addEventListener("click", function () {
+                    if (DOMS.mainWd.style["opacity"] == "0.9") {
+                        if (DOMS.haveBackgroundImage == false) {
+                            document.getElementsByTagName("body")[0].style = 'background-color:rgba(20,20,20,1)';
+                        }
+                        DOMS.mainWd.style = "opacity:0.5";
+                        DOMS.translateWindow.style = "opacity:0.6;display:none";
+                        DOMS.rate = 0.6;
+                        let green = 70;
+                        console.log("dasdasd");
+                        for (let i = 0; document.getElementsByTagName("td")[i]; ++i) {
+                            document.getElementsByTagName("td")[i].style = 'background-color:' + 'rgba(50,' + green + ',50,0.8);';
+                            document.getElementsByTagName("td")[i].getElementsByTagName("a")[0].style = "color:black";
+                            green += 8;
+                        }
+                    }
+                    else {
+                        let blue = 255;
+                        if (DOMS.haveBackgroundImage == false) {
+                            document.getElementsByTagName("body")[0].style = 'background-color:antiquewhite';
+                        }
+                        DOMS.mainWd.style = "opacity:0.9";
+                        DOMS.translateWindow.style = "opacity:0.9;display:none";
+                        DOMS.rate = 0.9;
+                        for (let i = 0; document.getElementsByTagName("td")[i]; ++i) {
+                            document.getElementsByTagName("td")[i].style = 'background-color:' + 'rgba(0,180,' + blue + ',0.9)';
+                            document.getElementsByTagName("td")[i].getElementsByTagName("a")[0].style = "color:antiquewhite";
+                            blue -= 8;
+                        }
+                    }
+                }, false);
+            })();
+            (function 设为背景按键鼠标点击事件绑定() {
+                DOMS.setBackgroundImageButton.addEventListener("click", function () {
+                    var imageUrl = DOMS.inputWd.value;//DOMS.variableURL.href;
+                    console.log(imageUrl);
+                    if (imageUrl === "") {
+                        if (DOMS.selectWd.options[DOMS.selectWd.selectedIndex].innerHTML == "清空背景") {
+                            DOMS.haveBackgroundImage = false;
+                            DOMS.moonButton.click();
+                            DOMS.moonButton.click();
+                        }
+                    }
+                    else {
+                        var tamp = imageUrl.split('\\');
+                        if (tamp.length > 1) {
+                            imageUrl = "";
+                            tamp.forEach(function (v, i, a) {
+                                if (i < a.length - 1) {
+                                    imageUrl += (v + '/');
+                                }
+                                else {
+                                    imageUrl += v;
+                                }
+                            })
+                            //imageUrl = imageUrl.replace(/\\/g, '/');
+                            console.log(imageUrl);
+                        }
+                        //imageUrl = imageUrl.split('"').toString();
+                        document.getElementsByTagName("body")[0].style = "background:" + "url(" + imageUrl + ")no-repeat center";
+                        DOMS.haveBackgroundImage = true; console.log(imageUrl);
+                    }
+                }, false);
+            })();
+        </script>
+</body>
+</html>
